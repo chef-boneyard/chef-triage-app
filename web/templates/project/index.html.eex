@@ -20,9 +20,9 @@
       <td><%= project.organization %></td>
       <td><%= project.triaged_at %></td>
       <%= if project.states != [] do %>
-      <td><%= state(project).issues %></td>
-      <td><%= state(project).untriaged_issues %></td>
-      <td><%= state(project).pull_requests %></td>
+      <td><a href=<%= issue_url(project, false) %>><%= state(project).issues %></a></td>
+      <td><a href=<%= issue_url(project, true) %>><%= state(project).untriaged_issues %></a></td>
+      <td><a href=<%= pr_url(project) %>><%= state(project).pull_requests %></a></td>
       <% else %>
         <td>Not yet checked!</td>
       <% end %>
