@@ -47,7 +47,7 @@ defmodule Triage.ProjectController do
         conn
         |> put_flash(:info, "Updated triage time for #{project.organization}/#{project.name}")
         |> redirect(to: project_path(conn, :index))
-      {:error, changeset} ->
+      {:error, _cs} ->
         conn
         |> put_flash(:info, "Failed to set triage time for #{project.organization}/#{project.name}")
     end
