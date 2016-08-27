@@ -13,8 +13,15 @@ use Mix.Config
 # which you typically run after static files are built.
 config :triage, Triage.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "triage.may.lt", port: 80],
+  cache_static_manifest: "priv/static/manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+config :triage, Triage.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -42,20 +49,3 @@ config :logger, level: :info
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
-
-# ## Using releases
-#
-# If you are doing OTP releases, you need to instruct Phoenix
-# to start the server for all endpoints:
-#
-#     config :phoenix, :serve_endpoints, true
-#
-# Alternatively, you can configure exactly which server to
-# start per endpoint:
-#
-#     config :triage, Triage.Endpoint, server: true
-#
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
